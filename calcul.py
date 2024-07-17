@@ -4,7 +4,7 @@ from concurrent.futures import ProcessPoolExecutor
 from src.preprocess_fits import preprocess_fits  # Assurez-vous que l'importation est correcte
 
 def process_file(file_index, total_nodes):
-    fits_dir = "./fichiers"
+    fits_dir = ".//fichiers"
     result_dir = "./nfs/resultats"
 
     # Vérifier et créer le répertoire result_dir s'il n'existe pas
