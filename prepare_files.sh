@@ -17,5 +17,5 @@ fi
 
 # Create 100 files with values from 1 to 100
 for i in $(seq 1 100); do
-  echo $i > fichiers/$i.txt
+  echo $i > ./nfs/fichiers/$i.txt
 done
