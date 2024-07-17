@@ -66,8 +66,7 @@ dslink.addInterface(nfsServer.addInterface())
 # Special attributes for this link that we must use.
 dslink.best_effort = True
 dslink.vlan_tagging = True
-dslink.link_multiplexing = True
-
+dslink.link_multiplexing = True 
 
 # The NFS clients, also attached to the NFS lan.
 for i in range(1, params.clientCount+1):
