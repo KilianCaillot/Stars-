@@ -5,7 +5,12 @@ from src.preprocess_fits import preprocess_fits  # Assurez-vous que l'importatio
 
 def process_file(file_index, total_nodes):
     fits_dir = "./fichiers"
-    result_dir = "./resultats"
+    result_dir = "./nfs/resultats"
+
+    # Vérifier et créer le répertoire result_dir s'il n'existe pas
+    if not os.path.exists(result_dir):
+        os.makedirs(result_dir)
+        print(f"Le répertoire {result_dir} a été créé.")
 
     # Calculer les indices de départ et de fin pour chaque nœud
     start_index = (file_index * 100) // total_nodes + 1
@@ -23,7 +28,9 @@ def process_file(file_index, total_nodes):
 
 def main(node_index, total_nodes, num_threads):
     with ProcessPoolExecutor(max_workers=num_threads) as executor:
-        executor.submit(process_file, node_index, total_nodes)
+        futures = [executor.submit(process_file, node_index, total_nodes) for _ in range(num_threads)]
+        for future in futures:
+            future.result()
 
 if __name__ == "__main__":
     if len(sys.argv) != 4:
