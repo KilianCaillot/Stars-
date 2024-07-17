@@ -78,10 +78,6 @@ for i in range(1, params.clientCount+1):
     nfsLan.addInterface(node.addInterface())
     # Initialization script for the clients
     node.addService(pg.Execute(shell="sh", command="sudo /bin/bash /local/repository/nfs-client.sh")) 
-    if i == 1:
-        # Only node1 runs the prepare_files.sh script
-        node.addService(pg.Execute(shell="sh", command="sudo /bin/bash /local/repository/prepare_files.sh && touch /nfs/ready.lock")) 
-    node.addService(pg.Execute(shell="sh", command="while [ ! -f /nfs/ready.lock ]; do sleep 1; done"))
     node.addService(pg.Execute(shell="sh", command="sudo /bin/bash /local/repository/calcul.py"))
     pass
 
