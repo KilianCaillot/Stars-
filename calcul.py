@@ -1,28 +1,37 @@
 import sys
 import os
+from concurrent.futures import ProcessPoolExecutor
+from src.preprocess_fits import preprocess_fits  # Assurez-vous que l'importation est correcte
 
 def process_file(file_index, total_nodes):
     fits_dir = "./fichiers"
     result_dir = "./resultats"
-   
 
+    # Calculer les indices de départ et de fin pour chaque nœud
     start_index = (file_index * 100) // total_nodes + 1
     end_index = ((file_index + 1) * 100) // total_nodes
 
     for i in range(start_index, end_index + 1):
         file_path = os.path.join(fits_dir, f"{i}.txt")
-        with open(file_path, 'r') as file:
-            value = int(file.read().strip())
-        result = value + i
-        result_path = os.path.join(result_dir, f"{i}.txt")
-        with open(result_path, 'w') as result_file:
-            result_file.write(str(result))
+        if os.path.exists(file_path):
+            with open(file_path, 'r') as file:
+                value = int(file.read().strip())
+            result = value + i
+            result_path = os.path.join(result_dir, f"{i}.txt")
+            with open(result_path, 'w') as result_file:
+                result_file.write(str(result))
+
+def main(node_index, total_nodes, num_threads):
+    with ProcessPoolExecutor(max_workers=num_threads) as executor:
+        executor.submit(process_file, node_index, total_nodes)
 
 if __name__ == "__main__":
-    if len(sys.argv) != 3:
-        print("Usage: python calcul.py <node_index> <total_nodes>")
+    if len(sys.argv) != 4:
+        print("Usage: python calcul.py <node_index> <total_nodes> <num_threads>")
         sys.exit(1)
 
     node_index = int(sys.argv[1])
     total_nodes = int(sys.argv[2])
-    process_file(node_index, total_nodes)
+    num_threads = int(sys.argv[3])
+    
+    main(node_index, total_nodes, num_threads)
