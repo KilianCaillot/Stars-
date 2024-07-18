@@ -1,10 +1,8 @@
 #!/bin/bash
 
-# Chemin vers le répertoire contenant le script Python
-SCRIPT_DIR="./calcul.py"
 
 # Chemin complet vers le script Python
-PYTHON_SCRIPT="$SCRIPT_DIR/calcul.py"
+PYTHON_SCRIPT= "local/repository/calcul.py" 
 
 # Arguments pour le script Python
 node_index = 0
