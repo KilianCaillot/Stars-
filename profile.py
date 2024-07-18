@@ -80,7 +80,12 @@ for i in range(1, params.clientCount+1):
     # Initialization script for the clients
     node.addService(pg.Execute(shell="sh", command="sudo /bin/bash /local/repository/nfs-client.sh")) 
     node.addService(pg.Execute(shell="sh", command="sudo /bin/bash /local/repository/calcul.py"))
+    
     pass
+
+
+
+
 
 # Print the RSpec to the enclosing page.
 pc.printRequestRSpec(request) 
