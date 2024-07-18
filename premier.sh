@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Chemin vers le répertoire contenant le script Python
-SCRIPT_DIR="/chemin/vers/repertoire"
+SCRIPT_DIR="./calcul.py"
 
 # Chemin complet vers le script Python
 PYTHON_SCRIPT="$SCRIPT_DIR/calcul.py"
