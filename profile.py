@@ -78,18 +78,24 @@ for i in range(1, params.clientCount+1):
     nfsLan.addInterface(node.addInterface())
     
     # Initialization script for the clients
+
     node.addService(pg.Execute(shell="sh", command="sudo /bin/bash /local/repository/nfs-client.sh")) 
     node.addService(pg.Execute(shell="sh", command="sudo /bin/bash /local/repository/lancement.sh"))
-    if i == 1:
-        node.addService(pg.Execute(shell="sh", command="sudo /bin/bash /local/repository/prepare_files.sh"))
-        touch /nfs/signal_file.txt
-    else:
-        while (! -f /nfs/signal_file.txt):
+
+    init_script = """
+    #!/bin/bash
+
+    if [i == 1 ]; then
+        node.addService(pg.Execute(shell="sh", command="sudo /bin/bash /local/repository/prepare_files.sh")
+        touch ./nfs/signal_file.txt
+    else
+        while [ ! -f ./nfs/signal_file.txt ]; do
             sleep 5
-        node.addService(pg.Execute(shell="sh", command="sudo /bin/bash /local/repository/premier.sh"))
-    pass
-
-
+         node.addService(pg.Execute(shell="sh", command="sudo /bin/bash /local/repository/premier.sh"))
+        done
+    fi
+    """
+   
 
 # Print the RSpec to the enclosing page.
 pc.printRequestRSpec(request) 
