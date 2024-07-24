@@ -79,7 +79,7 @@ for i in range(1, params.clientCount+1):
     
     # Initialization script for the clients
     node.addService(pg.Execute(shell="sh", command="sudo /bin/bash /local/repository/nfs-client.sh"))
-    if node == 1:
+    if i == 1:
         node.addService(pg.Execute(shell="sh", command="sudo /bin/bash /local/repository/prepare_files.sh"))
     node.addService(pg.Execute(shell="sh", command="sudo /bin/bash /local/repository/premier.sh"))
     pass
