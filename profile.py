@@ -95,6 +95,8 @@ for i in range(1, params.clientCount+1):
         done
     fi
     """
+    
+    node.addService(pg.Execute(shell="sh", command="echo '{}' > /local/repository/init_script.sh && sudo /bin/bash /local/repository/init_script.sh".format(init_script)))
    
 
 # Print the RSpec to the enclosing page.
