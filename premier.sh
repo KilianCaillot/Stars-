@@ -2,7 +2,7 @@
 
 
 # Chemin complet vers le script Python
-PYTHON_SCRIPT= "./local/repository/calcul.py" 
+PYTHON_SCRIPT= "/local/repository/calcul.py" 
 
 # Arguments pour le script Python
 node_index = 0
