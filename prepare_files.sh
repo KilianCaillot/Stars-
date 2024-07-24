@@ -3,7 +3,7 @@
 # Directory to store files 
 
 DIRECTORY="fichiers"
-HELLO="oui"
+HELLO="resultats"
 
 # Create the directory if it doesn't exist 
 
@@ -25,6 +25,13 @@ fi
 
 
 # Create 100 files with values from 1 to 100
-for i in $(seq 1 100); do
-  echo $i > ./nfs/fichiers/$i.txt
-done
+
+if [ ! -d "./nfs/$DIRECTORY" ]; then
+  for i in $(seq 1 100); do
+    echo $i > ./nfs/fichiers/$i.txt
+  done
+  echo "Le répertoire $DIRECTORY a été modifié."
+else
+  echo "Le répertoire $DIRECTORY a déjà été modifé."
+fi
+
