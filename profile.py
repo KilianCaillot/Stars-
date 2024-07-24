@@ -82,7 +82,11 @@ for i in range(1, params.clientCount+1):
     node.addService(pg.Execute(shell="sh", command="sudo /bin/bash /local/repository/lancement.sh"))
     if i == 1:
         node.addService(pg.Execute(shell="sh", command="sudo /bin/bash /local/repository/prepare_files.sh"))
-    node.addService(pg.Execute(shell="sh", command="sudo /bin/bash /local/repository/premier.sh"))
+        touch /nfs/signal_file.txt
+    else:
+        while (! -f /nfs/signal_file.txt):
+            sleep 5
+        node.addService(pg.Execute(shell="sh", command="sudo /bin/bash /local/repository/premier.sh"))
     pass
 
 
