@@ -3,7 +3,7 @@
 # Directory to store files 
 
 DIRECTORY="fichiers"
-HELLO= "oui"
+HELLO="oui"
 
 # Create the directory if it doesn't exist 
 
