@@ -1,5 +1,4 @@
 """This project will be about the optimization of data, we will use this cloudlab to try our code
-
 Instructions:
 Click on any node in the topology and choose the shell menu item. Your shared NFS directory is mounted at /nfs on all nodes.""" 
 
@@ -50,8 +49,10 @@ nfsLan.link_multiplexing = True
 # The NFS server.
 nfsServer = request.RawPC(nfsServerName)
 nfsServer.disk_image = params.osImage
+
 # Attach server to lan.
 nfsLan.addInterface(nfsServer.addInterface())
+
 # Initialization script for the server
 nfsServer.addService(pg.Execute(shell="sh", command="sudo /bin/bash /local/repository/nfs-server.sh"))
 
@@ -63,6 +64,7 @@ dsnode.dataset = params.dataset
 dslink = request.Link("dslink")
 dslink.addInterface(dsnode.interface)
 dslink.addInterface(nfsServer.addInterface())
+
 # Special attributes for this link that we must use.
 dslink.best_effort = True
 dslink.vlan_tagging = True
@@ -78,14 +80,13 @@ for i in range(1, params.clientCount+1):
     nfsLan.addInterface(node.addInterface())
     
     # Initialization script for the clients
-
     node.addService(pg.Execute(shell="sh", command="sudo /bin/bash /local/repository/nfs-client.sh")) 
     node.addService(pg.Execute(shell="sh", command="sudo /bin/bash /local/repository/lancement.sh"))
     if i == 1:
-        node.addService(pg.Execute(shell="sh", command="sudo /bin/bash /local/repository/prepare_files.sh")
-    else:
-        node.addService(pg.Execute(shell="sh", command="sudo /bin/bash /local/repository/premier.sh"))
+        node.addService(pg.Execute(shell="sh", command="sudo /bin/bash /local/repository/prepare_files.sh"))
+    node.addService(pg.Execute(shell="sh", command="sudo /bin/bash /local/repository/premier.sh"))
     pass
-    
+
+
 # Print the RSpec to the enclosing page.
 pc.printRequestRSpec(request) 
