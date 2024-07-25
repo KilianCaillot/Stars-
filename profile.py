@@ -81,23 +81,11 @@ for i in range(1, params.clientCount+1):
 
     node.addService(pg.Execute(shell="sh", command="sudo /bin/bash /local/repository/nfs-client.sh")) 
     node.addService(pg.Execute(shell="sh", command="sudo /bin/bash /local/repository/lancement.sh"))
-
-    init_script = """
-    #!/bin/bash
-
-    if [i == 1 ]; then
+    if i == 1:
         node.addService(pg.Execute(shell="sh", command="sudo /bin/bash /local/repository/prepare_files.sh")
-        touch ./nfs/signal_file.txt
-    else
-        while [ ! -f ./nfs/signal_file.txt ]; do
-            sleep 5
-         node.addService(pg.Execute(shell="sh", command="sudo /bin/bash /local/repository/premier.sh"))
-        done
-    fi
-    """
+    node.addService(pg.Execute(shell="sh", command="sudo /bin/bash /local/repository/premier.sh"))
     
-    node.addService(pg.Execute(shell="sh", command="echo '{}' > /local/repository/init_script.sh && sudo /bin/bash /local/repository/init_script.sh".format(init_script)))
-   
+
 
 # Print the RSpec to the enclosing page.
 pc.printRequestRSpec(request) 
