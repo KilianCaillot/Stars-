@@ -83,9 +83,9 @@ for i in range(1, params.clientCount+1):
     node.addService(pg.Execute(shell="sh", command="sudo /bin/bash /local/repository/lancement.sh"))
     if i == 1:
         node.addService(pg.Execute(shell="sh", command="sudo /bin/bash /local/repository/prepare_files.sh")
-    node.addService(pg.Execute(shell="sh", command="sudo /bin/bash /local/repository/premier.sh"))
+    else:
+        node.addService(pg.Execute(shell="sh", command="sudo /bin/bash /local/repository/premier.sh"))
     pass
     
-
 # Print the RSpec to the enclosing page.
 pc.printRequestRSpec(request) 
