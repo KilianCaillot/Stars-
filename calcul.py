@@ -1,6 +1,5 @@
 import sys
 import os
-from concurrent.futures import ProcessPoolExecutor
 from src.preprocess_fits import preprocess_fits  # Assurez-vous que l'importation est correcte
 
 def process_file(file_index, total_nodes):
@@ -26,19 +25,12 @@ def process_file(file_index, total_nodes):
             with open(result_path, 'w') as result_file:
                 result_file.write(str(result))
 
-def main(node_index, total_nodes, num_threads):
-    with ProcessPoolExecutor(max_workers=num_threads) as executor:
-        futures = [executor.submit(process_file, node_index, total_nodes) for _ in range(num_threads)]
-        for future in futures:
-            future.result()
-
 if __name__ == "__main__":
-    if len(sys.argv) != 4:
-        print("Usage: python calcul.py <node_index> <total_nodes> <num_threads>")
+    if len(sys.argv) != 3:
+        print("Usage: python calcul.py <node_index> <total_nodes>")
         sys.exit(1)
 
     node_index = int(sys.argv[1])
     total_nodes = int(sys.argv[2])
-    num_threads = int(sys.argv[3])
     
-    main(node_index, total_nodes, num_threads)
+    process_file(node_index, total_nodes)
