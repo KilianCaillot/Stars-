@@ -30,7 +30,7 @@ if __name__ == "__main__":
         print("Usage: python calcul.py <node_index> <total_nodes>")
         sys.exit(1)
 
-    node_index = int(sys.argv[1])
-    total_nodes = int(sys.argv[2])
+    node_index = 0
+    total_nodes = 1
     
     process_file(node_index, total_nodes)
