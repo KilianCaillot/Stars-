@@ -2,17 +2,9 @@
 #
 # Setup a simple FreeBSD NFS server on /nfs
 #
-# This script is derived from Jonathan Ellithorpe's Cloudlab profile at
-# https://github.com/jdellithorpe/cloudlab-generic-profile. Thanks!
-#
-# Hacked by mike to work on FreeBSD. The whole strategy has been changed
-# however. Rather than insert commands/variables into the standard system
-# files to have every thing restart on reboot via the standard mechanisms,
-# we handle all the startup from this script. This is because the standard
-# mechanisms run well before the Emulab scripts have configured the
-# experimental LAN we are serving files on. On the other hand, this script
-# runs at the end of the Emulab scripts. I do not know how the old method
-# worked even on Linux when there was a reboot!
+#This script is derived from Jonathan Ellithorpe's Cloudlab profile, available at:
+#https://github.com/jdellithorpe/cloudlab-generic-profile. A big thank you to Jonathan for his work!
+#Adapted by Mike to work on FreeBSD. However, the overall strategy has been modified.
 #
 . /etc/emulab/paths.sh
 
